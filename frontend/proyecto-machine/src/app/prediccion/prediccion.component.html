@@ -1,0 +1,141 @@
+<div class="container">
+  <h1>Predicción de Éxito Académico</h1>
+  <p>Ingrese la información del estudiante para estimar la probabilidad de éxito académico.</p>
+
+  <form (ngSubmit)="onSubmit()">
+    <!-- Género -->
+    <div class="form-group">
+      <label>Género</label>
+      <select [(ngModel)]="form.genero" name="genero">
+        <option>Femenino</option>
+        <option>Masculino</option>
+      </select>
+    </div>
+
+    <!-- Campesino -->
+    <div class="form-group">
+      <label>
+        <input type="checkbox" [(ngModel)]="form.campesino" name="campesino" />
+        Es campesino
+      </label>
+    </div>
+
+    <!-- Estrato -->
+    <div class="form-group">
+      <label>Estrato</label>
+      <input type="number" [(ngModel)]="form.estrato" name="estrato" min="0" max="6" />
+    </div>
+
+    <!-- Nivel de educación -->
+    <div class="form-group">
+      <label>Nivel de educación</label>
+      <select [(ngModel)]="form.nivel_educacion" name="nivel_educacion">
+        <option>Educación Primaria</option>
+        <option>Educación Media</option>
+        <option>Educación Secundaria Básica</option>
+        <option>Educación Técnica Profesional</option>
+        <option>Educación Tecnológica</option>
+        <option>Educación Universitaria Pregrado</option>
+        <option>Especialización</option>
+      </select>
+    </div>
+
+    <!-- Discapacidad -->
+    <div class="form-group">
+      <label>
+        <input type="checkbox" [(ngModel)]="form.discapacidad" name="discapacidad" />
+        Tiene alguna discapacidad
+      </label>
+    </div>
+
+    <!-- Tipo de formación -->
+    <div class="form-group">
+      <label>Tipo de formación</label>
+      <select [(ngModel)]="form.tipo_formacion" name="tipo_formacion">
+        <option>Virtual</option>
+        <option>Híbrida</option>
+      </select>
+    </div>
+
+    <!-- Víctima del conflicto -->
+    <div class="form-group">
+      <label>
+        <input type="checkbox" [(ngModel)]="form.victima_conflicto" name="victima_conflicto" />
+        Víctima del conflicto armado
+      </label>
+    </div>
+
+    <!-- Tiempo en segundos -->
+    <div class="form-group">
+      <label>Tiempo dedicado (segundos)</label>
+      <input type="number" [(ngModel)]="form.tiempo_segundos" name="tiempo_segundos" min="0" />
+    </div>
+
+    <!-- Puntaje eje temático -->
+    <div class="form-group">
+      <label>Puntaje eje temático seleccionado</label>
+      <input type="number" [(ngModel)]="form.puntaje_eje" name="puntaje_eje" min="0" />
+    </div>
+
+    <!-- Autoidentificación étnica -->
+    <div class="form-group">
+      <label>Autoidentificación étnica</label>
+      <select [(ngModel)]="form.autoidentificacion_etnica" name="autoidentificacion_etnica">
+        <option>Ningún grupo étnico</option>
+        <option>Indígena</option>
+        <option>Afrocolombiano</option>
+        <option>Rrom o gitano</option>
+      </select>
+    </div>
+
+    <!-- Eje final -->
+    <div class="form-group">
+      <label>Eje final</label>
+      <select [(ngModel)]="form.eje_final" name="eje_final">
+        <option>Análisis de Datos</option>
+        <option>Arquitectura en la nube</option>
+        <option>Inteligencia artificial</option>
+        <option>Programación</option>
+      </select>
+    </div>
+
+    <!-- Nivel (Básico / Avanzado) -->
+    <div class="form-group">
+      <label>Nivel</label>
+      <select [(ngModel)]="form.nivel" name="nivel">
+        <option>Básico</option>
+        <option>Avanzado</option>
+      </select>
+    </div>
+
+    <!-- OPCIONAL: promedio_lineas y promedio_areas -->
+    <div class="form-group">
+      <label>Promedio de líneas</label>
+      <input type="number" [(ngModel)]="form.promedio_lineas" name="promedio_lineas" step="0.01" />
+    </div>
+
+    <div class="form-group">
+      <label>Promedio de áreas</label>
+      <input type="number" [(ngModel)]="form.promedio_areas" name="promedio_areas" step="0.01" />
+    </div>
+
+    <!-- Botón -->
+    <button type="submit" [disabled]="cargando">
+      {{ cargando ? 'Calculando...' : 'Predecir' }}
+    </button>
+  </form>
+
+  <!-- Mostrar errores -->
+  <p *ngIf="errorMsg" style="color: red;">{{ errorMsg }}</p>
+
+  <!-- Mostrar resultado -->
+  <div *ngIf="resultado">
+    <h2>Resultado</h2>
+    <p>Probabilidad de éxito: {{ resultado.probabilidad_exito | percent:'1.0-2' }}</p>
+    <p>Predicción: 
+      <strong>
+        {{ resultado.prediccion === 1 ? 'Éxito académico' : 'Riesgo de no éxito' }}
+      </strong>
+    </p>
+  </div>
+</div>
